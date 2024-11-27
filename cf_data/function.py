@@ -21,3 +21,15 @@ def translate_func(problems_list: list[dict]):
     translated_words['greedy'] = 'жадные алгоритмы'
 
     return translated_words
+
+def data_for_printing(insert_list: list[set]):
+    result_list = []
+    for data in insert_list:
+        temp_list = []
+        for text in data:
+            temp_list.append(text)
+        result_list.append(f'контест: {temp_list[0]} номер: {temp_list[1]} название: {temp_list[2]}'
+                           f' рейтинг: {temp_list[3]} кол-во решений: {temp_list[4]} \n'
+                           f'ссылка: https://codeforces.com/problemset/problem/{temp_list[0]}/{temp_list[1]} \n')
+
+    return result_list

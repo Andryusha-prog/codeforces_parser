@@ -7,6 +7,7 @@ from db_data.db_manager import ManagerDB
 from tg_bot.tg_bot_func import bot
 
 
+
 if __name__ == '__main__':
 
     tag_words = set()
@@ -21,6 +22,8 @@ if __name__ == '__main__':
     translated_words = translate_func(problems_list)
 
     start_db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME)
+
+    start_db.insert_tag_words(translated_words)
 
     start_db.delete_table()
     start_db.create_tables()

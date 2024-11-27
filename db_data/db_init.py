@@ -1,4 +1,3 @@
-from abc import ABC
 
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import Session
@@ -6,7 +5,7 @@ from sqlalchemy.orm import Session
 from db_data.models import Base
 
 
-class StartDB(ABC):
+class StartDB:
     session: Session
     __engine: Engine
 
