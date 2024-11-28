@@ -1,8 +1,6 @@
 import random
 
-from celery.bin.result import result
-from sqlalchemy import select, func, and_, text
-from sqlalchemy.orm import Session
+from sqlalchemy import select, func, text
 
 from db_data.db_init import StartDB
 from db_data.models import ProblemsTable, StatisticsTable
@@ -74,11 +72,6 @@ class ManagerDB(StartDB):
         result_list_contest = []
         # вернет все задачи у которых сложность = lvl по одной выбранной теме
         with self.session as session:
-            # list_data = session.query(ProblemsTable).join(StatisticsTable, and_(ProblemsTable.contestId == StatisticsTable.contestId,
-            #                                                         ProblemsTable.index == StatisticsTable.index,
-            #                                                         ProblemsTable.tags.like(f"'%{input_data['tag']}%'"),
-            #                                                         ProblemsTable.rating == int(input_data['level'])),
-            #                                   isouter=True).all()
             str_select = f'''SELECT pr."contestId", pr.index, pr.name, pr.rating, st."solvedCount"
                 FROM problems as pr 
                 LEFT JOIN statistics as st
