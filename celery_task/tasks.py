@@ -17,7 +17,7 @@ def update_data():
     cnt_problems = len(problems_list)
     cnt_statistics = len(statistics_list)
 
-    dat = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME)  # получение данных о созданной БД
+    dat = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME, db_host=settings.DB_HOST, db_port=settings.DB_PORT)  # получение данных о созданной БД
     with dat.session as session:
 
         smtm = '''SELECT EXISTS (

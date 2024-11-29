@@ -1,7 +1,14 @@
-BASE_URL = 'https://codeforces.com/api/problemset.problems?lang=ru'
+import os
+from dotenv import load_dotenv
 
-DB_NAME = 'cf_data'
-DB_USER = 'postgres'
-DB_PASSWORD = 'admin'
+load_dotenv()
 
-TG_BOT_TOKEN = '8157100680:AAFtoCgR5PB-8mUmqc7FbNL46tRyWrsw9_g'
+BASE_URL = os.getenv('BASE_URL')
+
+DB_NAME = os.getenv('POSTGRES_DB')
+DB_USER = os.getenv('POSTGRES_USER')
+DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+DB_HOST = os.getenv('POSTGRES_HOST')
+DB_PORT = os.getenv('POSTGRES_PORT')
+
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')

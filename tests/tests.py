@@ -1,18 +1,14 @@
 import unittest
-
-import testing.postgresql
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 import settings
-from cf_data.function import translate_func
 from db_data.db_manager import ManagerDB
 from db_data.models import ProblemsTable, StatisticsTable
 
 
 class MyTestCase(unittest.TestCase):
     def setUp(self):
-        self.db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME)
+        self.db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME, db_host=settings.DB_HOST, db_port=settings.DB_PORT)
         self.db.create_tables()
         self.problems = [
             {

@@ -1,6 +1,6 @@
 import random
 
-from sqlalchemy import select, func, text
+from sqlalchemy import func, text
 
 from db_data.db_init import StartDB
 from db_data.models import ProblemsTable, StatisticsTable
@@ -15,7 +15,6 @@ class ManagerDB(StartDB):
 
             for problems in problems_list:
                 tags = [tag_words[tag] for tag in problems['tags']]
-                # print(tags)
 
                 pr_rat = 1 if 'rating' in problems.keys() else 0
                 prepare_data_problems.append(ProblemsTable(
@@ -23,15 +22,11 @@ class ManagerDB(StartDB):
                     index=problems['index'],
                     name=problems['name'],
                     rating=problems['rating'] if pr_rat == 1 else None,
-                    # tags=', '.join(problems['tags'])
                     tags=', '.join(tags)
                 )
                 )
-                # [set_of_words.add(word) for word in problems['tags']]
             session.add_all(prepare_data_problems)
             session.commit()
-
-        # return [word for word in set_of_words]
 
     def insert_statistics(self, statistics_list: list[dict]):
 
@@ -90,5 +85,4 @@ class ManagerDB(StartDB):
                     result_list.append(elem)
                     result_list_contest.append(elem.contestId)
 
-        # return result_list
         return result_list

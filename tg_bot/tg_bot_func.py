@@ -6,7 +6,7 @@ from db_data.db_manager import ManagerDB
 
 data_select = {}
 bot = telebot.TeleBot(settings.TG_BOT_TOKEN)
-start_db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME)
+start_db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME, db_host=settings.DB_HOST, db_port=settings.DB_PORT)
 
 
 @bot.message_handler(commands=['start'])  # команда /start или кнопка "Запустить" !!!!

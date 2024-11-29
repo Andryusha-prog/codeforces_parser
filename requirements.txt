@@ -10,6 +10,7 @@ click==8.1.7
 click-didyoumean==0.3.1
 click-plugins==1.1.1
 click-repl==0.3.0
+coverage==7.6.8
 deep-translator==1.11.4
 greenlet==3.1.1
 idna==3.10
@@ -20,6 +21,7 @@ psycopg==3.2.3
 psycopg-binary==3.2.3
 pyTelegramBotAPI==4.24.0
 python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 redis==5.2.0
 requests==2.32.3
 scramp==1.4.5

@@ -9,21 +9,21 @@ class StartDB:
     session: Session
     __engine: Engine
 
-    def __init__(self, db_name, db_user, db_password):
-        # self.engine = create_engine(f"postgresql+psycopg://{db_user}:{db_password}@localhost:5432/{db_name}")
+    def __init__(self, db_name, db_user, db_password, db_host, db_port):
         self.db_name = db_name
         self.db_user = db_user
         self.sb_password = db_password
+        self.db_host = db_host
+        self.db_port = db_port
 
         self.__engine = create_engine(
-            f"postgresql+psycopg://{self.db_user}:{self.sb_password}@localhost:5432/{self.db_name}")
+            f"postgresql+psycopg://{self.db_user}:{self.sb_password}@{self.db_host}:{self.db_port}/{self.db_name}")
+            #f"postgresql+psycopg://{self.db_user}:{self.sb_password}@localhost:5432/{self.db_name}")
         self.session = Session(bind=self.__engine)
 
 
     def create_tables(self):
-        #self.__engine = create_engine(f"postgresql+psycopg://{self.db_user}:{self.sb_password}@localhost:5432/{self.db_name}")
         Base.metadata.create_all(bind=self.__engine)
-        #self.session = Session(bind=self.__engine)
 
 
     def delete_table(self):
