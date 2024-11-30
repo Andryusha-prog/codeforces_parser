@@ -1,5 +1,3 @@
-from abc import ABC
-
 import requests
 
 from settings import BASE_URL
@@ -17,5 +15,3 @@ class APIClient:
         response.raise_for_status()
 
         return response.json()['result']
-
-

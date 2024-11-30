@@ -3,7 +3,8 @@ from deep_translator import GoogleTranslator
 
 def translate_func(problems_list: list[dict]) -> dict[str, str]:
     """
-    Функция для перевода тем задач с английского на русский язык (занимает продолжительное время)
+    Функция для перевода тем задач с английского на русский язык
+        (занимает продолжительное время)
     :param problems_list: список задач codeforces.com
     :return: словарь вида {слово на английском: перевод на русском}
     """
@@ -17,7 +18,10 @@ def translate_func(problems_list: list[dict]) -> dict[str, str]:
     for word in tag_words:
         result.append(word)
 
-    translated = GoogleTranslator(source='en', target='ru').translate_batch(result)
+    translated = GoogleTranslator(
+        source='en',
+        target='ru'
+    ).translate_batch(result)
     for i in range(len(translated)):
         translated_words[result[i]] = translated[i]
     if 'graphs' in tag_words:
@@ -31,10 +35,13 @@ def translate_func(problems_list: list[dict]) -> dict[str, str]:
 
     return translated_words
 
+
 def data_for_printing(insert_list: list[set]) -> list[str]:
     """
-    Функция преобразует входной список множеств данных о задачах в список строк для вывода пользователю через ТГ бота
-    :param insert_list: список множеств из результирующего запроса, содержащий как информацию о задачах, так и количество решений
+    Функция преобразует входной список множеств данных о задачах
+        в список строк для вывода пользователю через ТГ бота
+    :param insert_list: список множеств из результирующего запроса,
+        содержащий как информацию о задачах, так и количество решений
     :return: список строк для представления информации пользователю
     """
     result_list = []
@@ -42,8 +49,13 @@ def data_for_printing(insert_list: list[set]) -> list[str]:
         temp_list = []
         for text in data:
             temp_list.append(text)
-        result_list.append(f'контест: {temp_list[0]} номер: {temp_list[1]} название: {temp_list[2]}'
-                           f' рейтинг: {temp_list[3]} кол-во решений: {temp_list[4]} \n'
-                           f'ссылка: https://codeforces.com/problemset/problem/{temp_list[0]}/{temp_list[1]} \n')
+        result_list.append(f'контест: {temp_list[0]} '
+                           f'номер: {temp_list[1]} '
+                           f'название: {temp_list[2]}'
+                           f' рейтинг: {temp_list[3]} '
+                           f'кол-во решений: {temp_list[4]} \n'
+                           f'ссылка: '
+                           f'https://codeforces.com/problemset/problem/'
+                           f'{temp_list[0]}/{temp_list[1]} \n')
 
     return result_list

@@ -5,8 +5,9 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     pass
 
+
 class ProblemsTable(Base):
-    __tablename__ = 'problems'
+    __tablename__ = "problems"
 
     id = Column(Integer, primary_key=True, index=True)
     contestId = Column(Integer)
@@ -15,8 +16,9 @@ class ProblemsTable(Base):
     rating = Column(Integer)
     tags = Column(TEXT)
 
+
 class StatisticsTable(Base):
-    __tablename__ = 'statistics'
+    __tablename__ = "statistics"
 
     id = Column(Integer, primary_key=True, index=True)
     contestId = Column(Integer)

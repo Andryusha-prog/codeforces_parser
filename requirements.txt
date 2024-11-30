@@ -12,12 +12,16 @@ click-plugins==1.1.1
 click-repl==0.3.0
 coverage==7.6.8
 deep-translator==1.11.4
+flake8==7.1.1
 greenlet==3.1.1
 idna==3.10
 kombu==5.4.2
+mccabe==0.7.0
 pg8000==1.31.2
 prompt_toolkit==3.0.48
 psycopg2-binary==2.9.10
+pycodestyle==2.12.1
+pyflakes==3.2.0
 pyTelegramBotAPI==4.24.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1

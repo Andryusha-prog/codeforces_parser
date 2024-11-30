@@ -9,7 +9,13 @@ from db_data.models import ProblemsTable, StatisticsTable
 
 class MyTestCase(unittest.TestCase):
     def setUp(self):
-        self.db = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME, db_host=settings.DB_HOST, db_port=settings.DB_PORT)
+        self.db = ManagerDB(
+            db_user=settings.DB_USER,
+            db_password=settings.DB_PASSWORD,
+            db_name=settings.DB_NAME,
+            db_host=settings.DB_HOST,
+            db_port=settings.DB_PORT,
+        )
         self.db.create_tables()
         self.problems = [
             {
@@ -18,10 +24,7 @@ class MyTestCase(unittest.TestCase):
                 "name": "Схема",
                 "type": "PROGRAMMING",
                 "rating": 2300,
-                "tags": [
-                    'graphs',
-                    'math'
-                ]
+                "tags": ["graphs", "math"],
             }
         ]
         self.problems_2 = [
@@ -31,10 +34,7 @@ class MyTestCase(unittest.TestCase):
                 "name": "Схема_2",
                 "type": "PROGRAMMING",
                 "rating": 700,
-                "tags": [
-                    'graphs',
-                    'math'
-                ]
+                "tags": ["graphs", "math"],
             }
         ]
         self.statistics = [
@@ -45,18 +45,18 @@ class MyTestCase(unittest.TestCase):
             }
         ]
 
-        self.translated_words = {'graphs': 'графы', 'math': 'математика'}
+        self.translated_words = {"graphs": "графы", "math": "математика"}
 
     def tearDown(self):
         self.db.delete_table()
 
     def test_create_tables(self):
         with self.db.session as session:
-            smtm = '''SELECT EXISTS (
-                        SELECT 1 FROM information_schema.tables 
-                        WHERE table_schema = 'public' 
+            smtm = """SELECT EXISTS (
+                        SELECT 1 FROM information_schema.tables
+                        WHERE table_schema = 'public'
                         AND table_name = 'problems'
-                        ) AS table_exists;'''
+                        ) AS table_exists;"""
             result = session.execute(text(smtm))
         is_exists_problems = result.first()[0]
 
@@ -87,30 +87,29 @@ class MyTestCase(unittest.TestCase):
         self.db.insert_problems(self.problems_2, self.translated_words)
         min_max_problem = self.db.select_problem_rating()
 
-        self.assertEqual(min_max_problem['min'], 700)
-        self.assertEqual(min_max_problem['max'], 2300)
+        self.assertEqual(min_max_problem["min"], 700)
+        self.assertEqual(min_max_problem["max"], 2300)
 
     def test_result_select(self):
         self.db.insert_problems(self.problems, self.translated_words)
         self.db.insert_problems(self.problems_2, self.translated_words)
 
-        result = self.db.result_select({'tag': 'математика', 'level': 700})
-        self.assertEqual(result, [(21, 'I', 'Схема_2', 700, None)])
+        result = self.db.result_select({"tag": "математика", "level": 700})
+        self.assertEqual(result, [(21, "I", "Схема_2", 700, None)])
 
     def test_translate_func(self):
         result = translate_func(self.problems)
-        self.assertEqual(result, {'graphs': 'графы', 'math': 'математика'})
+        self.assertEqual(result, {"graphs": "графы", "math": "математика"})
 
     def test_delete_tables(self):
         self.db.delete_table()
         with self.db.session as session:
-            smtm = '''SELECT EXISTS (
+            smtm = """SELECT EXISTS (
                         SELECT 1 FROM information_schema.tables
                         WHERE table_schema = 'public'
                         AND table_name = 'problems'
-                        ) AS table_exists;'''
+                        ) AS table_exists;"""
             result = session.execute(text(smtm))
         is_exists_problems = result.first()[0]
 
         self.assertFalse(is_exists_problems)
-
