@@ -10,6 +10,12 @@ from db_data.models import ProblemsTable
 
 @app.task
 def update_data():
+    """
+    Функция обновления данных о задачах с сайта codeforces.
+      Вызывается каждый час, проверяет количество задач на сайте и добавляет только недостающие.
+      Перед началом работы проводится проверка на сществоавание БД задач.
+    :return:
+    """
 
     problems_list = APIClient.get()['problems']
     statistics_list = APIClient.get()['problemStatistics']
@@ -17,18 +23,18 @@ def update_data():
     cnt_problems = len(problems_list)
     cnt_statistics = len(statistics_list)
 
-    dat = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME, db_host=settings.DB_HOST, db_port=settings.DB_PORT)  # получение данных о созданной БД
+    dat = ManagerDB(db_user=settings.DB_USER, db_password=settings.DB_PASSWORD, db_name=settings.DB_NAME,
+                    db_host=settings.DB_HOST, db_port=settings.DB_PORT)  # получение данных о созданной БД
     with dat.session as session:
 
         smtm = '''SELECT EXISTS (
-            SELECT 1 FROM information_schema.tables 
-            WHERE table_schema = 'public' 
+            SELECT 1 FROM information_schema.tables
+            WHERE table_schema = 'public'
             AND table_name = 'problems'
             ) AS table_exists;'''
         result = session.execute(text(smtm))
         if not result.first()[0]:
             dat.create_tables()
-
 
         cnt_tab = session.query(ProblemsTable).count()
         # проверка количества задача на текущий момент с сайта и сколько сохранено в БД
@@ -37,7 +43,6 @@ def update_data():
         # translated_words = translate_func(problems_list[:cnt_problems - cnt_tab])
 
         if cnt_problems > cnt_tab:
-
             translated_words = translate_func(problems_list[:cnt_problems - cnt_tab])
             problems_reverse = problems_list[:cnt_problems - cnt_tab]
             statistics_reverse = statistics_list[:cnt_statistics - cnt_tab]
@@ -46,6 +51,3 @@ def update_data():
             dat.insert_problems(problems_reverse, translated_words)
             dat.insert_statistics(statistics_reverse)
 
-
-
-#celery -A celery_task worker --beat --loglevel=INFO

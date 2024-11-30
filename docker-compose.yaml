@@ -27,6 +27,25 @@ services:
     env_file:
       - .env
 
+  redis:
+    image: redis:latest
+    restart: on-failure
+    expose:
+      - "6379"
+
+  celery:
+    build: .
+    tty: true
+    command: celery -A celery_task worker --beat --loglevel=INFO
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - app
+      - db
+    env_file:
+      - .env
 
 
 volumes:

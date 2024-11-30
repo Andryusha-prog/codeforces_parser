@@ -17,8 +17,7 @@ idna==3.10
 kombu==5.4.2
 pg8000==1.31.2
 prompt_toolkit==3.0.48
-psycopg==3.2.3
-psycopg-binary==3.2.3
+psycopg2-binary==2.9.10
 pyTelegramBotAPI==4.24.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1

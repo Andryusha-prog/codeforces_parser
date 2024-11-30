@@ -2,6 +2,7 @@ import unittest
 from sqlalchemy import text
 
 import settings
+from cf_data.function import translate_func
 from db_data.db_manager import ManagerDB
 from db_data.models import ProblemsTable, StatisticsTable
 
@@ -96,9 +97,9 @@ class MyTestCase(unittest.TestCase):
         result = self.db.result_select({'tag': 'математика', 'level': 700})
         self.assertEqual(result, [(21, 'I', 'Схема_2', 700, None)])
 
-    # def test_translate_func(self):
-    #     result = translate_func(self.problems)
-    #     self.assertEqual(result, {'graphs': 'графы', 'math': 'математика'})
+    def test_translate_func(self):
+        result = translate_func(self.problems)
+        self.assertEqual(result, {'graphs': 'графы', 'math': 'математика'})
 
     def test_delete_tables(self):
         self.db.delete_table()

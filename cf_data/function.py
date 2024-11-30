@@ -1,7 +1,12 @@
 from deep_translator import GoogleTranslator
 
 
-def translate_func(problems_list: list[dict]):
+def translate_func(problems_list: list[dict]) -> dict[str, str]:
+    """
+    Функция для перевода тем задач с английского на русский язык (занимает продолжительное время)
+    :param problems_list: список задач codeforces.com
+    :return: словарь вида {слово на английском: перевод на русском}
+    """
     tag_words = set()
     result = []
     translated_words = {}
@@ -26,7 +31,12 @@ def translate_func(problems_list: list[dict]):
 
     return translated_words
 
-def data_for_printing(insert_list: list[set]):
+def data_for_printing(insert_list: list[set]) -> list[str]:
+    """
+    Функция преобразует входной список множеств данных о задачах в список строк для вывода пользователю через ТГ бота
+    :param insert_list: список множеств из результирующего запроса, содержащий как информацию о задачах, так и количество решений
+    :return: список строк для представления информации пользователю
+    """
     result_list = []
     for data in insert_list:
         temp_list = []

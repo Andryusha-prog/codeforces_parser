@@ -8,15 +8,14 @@ from settings import BASE_URL
 class APIClient:
     @staticmethod
     def get():
-        #theo = {}
-        items = []
+        """
+        Функция возвращает список словарей, содержащих данные о задачах.
+        :return:
+        """
+
         response = requests.get(BASE_URL)
         response.raise_for_status()
-        '''for keys, _ in response.json()['result'].items():
-            items.append(keys)
-        return items
-        '''
+
         return response.json()['result']
-        #return response.json()['result']['problems']
-        #return response.json()['result']['problemStatistics']
+
 

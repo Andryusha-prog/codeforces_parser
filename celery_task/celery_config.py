@@ -1,6 +1,8 @@
-broker_url = 'redis://localhost:6379/0'
+from settings import CELERY_URL
+
+broker_url = CELERY_URL
 task_serializer = 'json'
 result_serializer = 'json'
 accept_content = ['json']
-timezone = 'Europe/Dublin'
+timezone = 'Europe/Moscow'
 enable_utc = True

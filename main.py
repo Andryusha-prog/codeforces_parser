@@ -1,5 +1,3 @@
-import telebot
-
 import settings
 from cf_data.cf_api import APIClient
 from cf_data.function import translate_func
