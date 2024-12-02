@@ -73,7 +73,7 @@ def input_tags(message):
     :param message:
     :return:
     """
-    data_select["tag"] = message.text
+    data_select["tag"] = message.text.lower()
     chat_id = message.chat.id
     bot.send_message(chat_id, "Введите уровень сложности задач")
     bot.register_next_step_handler(message, input_level)
